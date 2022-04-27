@@ -6,15 +6,6 @@ module.exports = (sequelize, DataTypes) => {
     text: {
       type: DataTypes.STRING
     }
-  }, {
-    timestamps: false
-  }
-  )
-  Comment.associate = (models) => {
-    Comment.belongsTo(models.Tutorial, {
-      onDelete: 'CASCADE',
-      foreignKey: 'tutorialId'
-    })
-  }
+  }, { timestamps: false })
   return Comment
 }
