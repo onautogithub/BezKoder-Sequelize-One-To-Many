@@ -29,6 +29,9 @@ module.exports = app => {
   // Update a tutorial identified by its id
   router.put('/:id', controller.updateTutorial)
 
+  // Update a comment identified by its id
+  router.put('/comments/:id', controller.updateComment)
+
   /// ///////////////
 
   // // Retrieve a Single Tutorial by its Title and its comments

@@ -70,12 +70,14 @@
 
 <script>
 import TutorialDataService from '../services/TutorialDataService'
+import CommentDataService from '../services/CommentDataService'
 export default {
   name: 'tutorial',
   data () {
     return {
       currentTutorial: null,
       message: '',
+      currentcomment: null,
       comments: [],
       title: '',
       headers: [
@@ -133,18 +135,23 @@ export default {
           console.log(e)
         })
     },
-    deleteComment () {
-      // TutorialDataService.delete(this.currentTutorial.id)
-      //   .then((response) => {
-      //     console.log(response.data)
-      //     this.$router.push({ name: 'tutorials' })
-      //   })
-      //   .catch((e) => {
-      //     console.log(e)
-      //   })
+    deleteComment (id) {
+      console.log(`This is what I passed as an id ` + id)
+      CommentDataService.delete(id)
+        .then((response) => {
+          console.log(response.data)
+          // this.$router.push(
+          //   {name: 'tutorial-details', params: {id: this.currentTutorial.id}})
+          // this.$router.push({ name: 'tutorial-details' })
+          this.getTutorial(this.$route.params.id)
+          // this.getDisplayComments(this.comment)
+        })
+        .catch((e) => {
+          console.log(e)
+        })
     },
     updateComment () {
-      // TutorialDataService.delete(this.currentTutorial.id)
+      // CommentDataService.delete(this.currentComment.id)
       //   .then((response) => {
       //     console.log(response.data)
       //     this.$router.push({ name: 'tutorials' })

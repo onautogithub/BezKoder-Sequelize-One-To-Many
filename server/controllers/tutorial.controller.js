@@ -207,3 +207,42 @@ exports.updateTutorial = (req, res) => {
       })
     })
 }
+
+// Update a specific Tutorial
+exports.updateComment = (req, res) => {
+  // Validate request
+  if (!req.body.name) {
+    res.status(400).send({
+      message: 'Comment cannot be empty!'
+    })
+    return
+  }
+  const commentId = req.params.id
+  console.log(commentId)
+  const comment = {
+    name: req.body.name,
+    text: req.body.text,
+    tutorialId: req.body.tutorialId
+  }
+
+  Comment.update(comment, {
+    where: { id: commentId }
+  })
+    .then(num => {
+      if (num) {
+        res.send({
+          message: `Comment with id ${commentId} was updated successfully.`
+        })
+      } else {
+        res.send({
+          message: `Unable to update Comment with id=${commentId}.`
+        })
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || 'An error occurred while updating comment with id: ' + commentId
+      })
+    })
+}
