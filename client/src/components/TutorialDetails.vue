@@ -35,6 +35,9 @@
       <v-btn color="success" small @click="updateTutorial">
         Update
       </v-btn>
+      <v-btn color="information" small @click="backToPrevious">
+        Back
+      </v-btn>
       <v-card class="mx-auto" tile>
       <v-card-title>
         Comments
@@ -150,22 +153,25 @@ export default {
           console.log(e)
         })
     },
-    updateComment () {
-      // CommentDataService.delete(this.currentComment.id)
-      //   .then((response) => {
-      //     console.log(response.data)
-      //     this.$router.push({ name: 'tutorials' })
-      //   })
-      //   .catch((e) => {
-      //     console.log(e)
-      //   })
-    },
     getDisplayComments (comment) {
       return {
         id: comment.id,
         name: comment.name.length > 30 ? comment.name.substr(0, 30) + '...' : comment.name,
         text: comment.text.length > 30 ? comment.text.substr(0, 30) + '...' : comment.text
       }
+    },
+    editComment (id) {
+      console.log(`This is what I passed as an id ` + id)
+      this.$router.push(
+        {name: 'comment-details', params: {id: id}})
+    },
+    removeAllComments () {
+      // console.log(`This is what I passed as an id ` + id)
+      // this.$router.push(
+      //   {name: 'comment-details', params: {id: id}})
+    },
+    backToPrevious () {
+      this.$router.push({name: 'tutorials'})
     }
   },
   mounted () {

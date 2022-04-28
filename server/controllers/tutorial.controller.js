@@ -73,13 +73,18 @@ exports.findTutorialById = (req, res) => {
 }
 
 // Get the comments for a given comment id
-exports.findCommentById = (id) => {
-  return Comment.findByPk(id, { include: ['tutorial'] })
-    .then((comment) => {
-      return comment
+exports.findCommentById = (req, res) => {
+  const commentId = req.params.id
+  console.log(commentId)
+  Comment.findByPk(commentId)
+    .then(data => {
+      res.send(data)
     })
-    .catch((err) => {
-      console.log('>> Error while finding comment: ', err)
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || 'An error occurred while retrieving comment id: ' + commentId
+      })
     })
 }
 
@@ -169,6 +174,49 @@ exports.deleteSpecificComment = (req, res) => {
       })
     })
 }
+// Delete all comments for a single tutorial
+exports.deleteAllTutorialComments = (req, res) => {
+  const comments = {
+    tutorialId: req.body.tutorialId
+  }
+  Comment.destroy(comments)
+    .then(data => {
+      res.send(data)
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || 'An error occurred while deleting the comments for Tutorial: ' + this.tutorialId
+      })
+    })
+}
+// exports.deleteAllTutorialComments = (req, res) => {
+//   const comments = {
+//     tutorialId: req.body.tutorialId
+//   }
+//   console.log(tutorialId)
+
+//   Comment.destroy({
+//     where: { tutorialId: tutorialId }
+//   })
+//     .then(num => {
+//       if (num) {
+//         res.send({
+//           message: `All Comments for Tutorial id ${tutorialId} were deleted successfully!`
+//         })
+//       } else {
+//         res.send({
+//           message: `Unable to delete comments for Tutorial id: ${tutorialId}.`
+//         })
+//       }
+//     })
+//     .catch(err => {
+//       res.status(500).send({
+//         message:
+//           err.message || `An error occurred while deleting comments for Tutorial id: ${tutorialId}.`
+//       })
+//     })
+// }
 // Update a specific Tutorial
 exports.updateTutorial = (req, res) => {
   // Validate request

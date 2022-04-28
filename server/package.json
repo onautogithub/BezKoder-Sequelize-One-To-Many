@@ -4,11 +4,16 @@
   "description": "sequelize one-to-many",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js",
+    "dev": "nodemon server.js"
   },
   "author": "bezkoder",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.0",
     "mysql2": "^2.1.0",
     "sequelize": "^5.21.6"
   },
@@ -23,6 +28,7 @@
     "eslint-plugin-node": "^5.2.0",
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-standard": "^3.0.1",
-    "eslint-plugin-vue": "^4.0.0"
+    "eslint-plugin-vue": "^4.0.0",
+    "nodemon": "^2.0.15"
   }
 }

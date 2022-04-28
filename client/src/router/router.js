@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import TutorialDetails from '@/components/TutorialDetails'
+import CommentDetails from '@/components/CommentDetails'
 import AddTutorial from '@/components/AddTutorial'
 import TutorialsList from '@/components/TutorialsList'
 
@@ -24,6 +25,11 @@ export default new Router({
       path: '/add',
       name: 'add',
       component: AddTutorial
+    },
+    {
+      path: '/comment',
+      name: 'comment-details',
+      component: CommentDetails
     }
   ]
 })

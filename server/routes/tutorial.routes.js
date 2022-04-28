@@ -26,6 +26,9 @@ module.exports = app => {
   // Delete a single comment identified by its id
   router.delete('/comments/:id', controller.deleteSpecificComment)
 
+  // Delete all comments for a specific Tutorial id
+  router.delete('/comments/', controller.deleteAllTutorialComments)
+
   // Update a tutorial identified by its id
   router.put('/:id', controller.updateTutorial)
 
