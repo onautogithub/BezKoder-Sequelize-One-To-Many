@@ -1,4 +1,5 @@
 <template>
+
   <div v-if="currentTutorial" class="edit-form py-3">
     <p class="headline">Edit Tutorial</p>
     <v-form ref="form" lazy-validation>
@@ -34,6 +35,9 @@
       </v-btn>
       <v-btn color="success" small @click="updateTutorial">
         Update
+      </v-btn>
+      <v-btn color="information" small @click="addComment">
+        Add Comment
       </v-btn>
       <v-btn color="information" small @click="backToPrevious">
         Back
@@ -82,7 +86,7 @@ export default {
       message: '',
       currentcomment: null,
       comments: [],
-      title: '',
+      //  title: '',
       headers: [
         {text: 'Title', align: 'start', sortable: false, value: 'name'},
         {text: 'Comment', value: 'text', sortable: false},
@@ -95,8 +99,9 @@ export default {
       TutorialDataService.get(id)
         .then((response) => {
           this.currentTutorial = response.data
+          // this.comments = response.data.comments
           this.comments = response.data.comments.map(this.getDisplayComments)
-          console.log(response.data)
+          console.log(this.comments)
         })
         .catch((e) => {
           console.log(e)
@@ -143,11 +148,7 @@ export default {
       CommentDataService.delete(id)
         .then((response) => {
           console.log(response.data)
-          // this.$router.push(
-          //   {name: 'tutorial-details', params: {id: this.currentTutorial.id}})
-          // this.$router.push({ name: 'tutorial-details' })
           this.getTutorial(this.$route.params.id)
-          // this.getDisplayComments(this.comment)
         })
         .catch((e) => {
           console.log(e)
@@ -170,11 +171,18 @@ export default {
       // this.$router.push(
       //   {name: 'comment-details', params: {id: id}})
     },
+    addComment (id) {
+      console.log(`This is what I passed for the tutorial id ` + this.$route.params.id)
+      this.$router.push(
+        {name: 'add-comment', params: {id: this.$route.params.id}})
+    },
     backToPrevious () {
       this.$router.push({name: 'tutorials'})
     }
   },
   mounted () {
+    console.log('mounting tutorial details')
+    console.log(this.$route.params.id)
     this.message = ''
     this.getTutorial(this.$route.params.id)
   }
